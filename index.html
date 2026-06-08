@@ -1,12 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Portfolio</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>XP Converter - 이미지 PDF 변환</title>
+  <meta name="description" content="XP Converter는 브라우저에서 이미지와 PDF를 서로 변환하는 무료 정적 웹 도구입니다. JPG, PNG, WebP 이미지를 PDF로 만들고 PDF 페이지를 이미지로 저장할 수 있습니다.">
+  <meta name="keywords" content="이미지 PDF 변환, PDF 이미지 변환, JPG PDF 변환, PNG PDF 변환, 무료 PDF 변환, 브라우저 PDF 도구">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="XP Converter">
+  <link rel="canonical" href="/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="XP Converter - 이미지 PDF 변환">
+  <meta property="og:description" content="설치 없이 브라우저 안에서 이미지와 PDF를 변환하세요. 파일은 서버로 업로드되지 않습니다.">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#245edb">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "XP Converter",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "description": "브라우저에서 이미지와 PDF를 서로 변환하는 무료 정적 웹 도구입니다.",
+    "inLanguage": "ko-KR",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "featureList": [
+      "이미지를 PDF로 변환",
+      "PDF 페이지를 이미지로 변환",
+      "클라이언트 브라우저 기반 파일 처리",
+      "설치 없는 정적 웹 서비스"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <p>메인페이지</p>
+  <div class="desktop" aria-label="Windows XP 스타일 변환 도구">
+    <main class="xp-window" role="main" aria-labelledby="appTitle">
+      <header class="title-bar">
+        <div class="title-left">
+          <span class="window-icon" aria-hidden="true"></span>
+          <h1 id="appTitle">XP Converter</h1>
+        </div>
+        <div class="window-controls" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </header>
+
+      <nav class="tab-strip" aria-label="주요 메뉴">
+        <button class="tab-button is-active" data-panel="converter" type="button">변환</button>
+        <button class="tab-button" data-panel="features" type="button">기능 소개</button>
+        <button class="tab-button" data-panel="about" type="button">사이트 소개</button>
+        <button class="tab-button" data-panel="privacy" type="button">개인정보처리방침</button>
+      </nav>
+
+      <section class="window-body panel is-active" id="converter" aria-labelledby="converterTitle">
+        <div class="intro-copy">
+          <p class="eyebrow">브라우저에서 바로 처리</p>
+          <h2 id="converterTitle">이미지와 PDF를 양방향으로 변환하세요.</h2>
+          <p>JPG, PNG, WebP 이미지를 업로드하면 PDF로 묶을 수 있고, PDF 파일을 업로드하면 각 페이지를 이미지로 저장할 수 있습니다. 변환은 사용자의 브라우저에서 실행되며 서버 업로드가 필요하지 않습니다.</p>
+        </div>
+
+        <div class="converter-grid">
+          <section class="tool-panel" aria-label="파일 업로드">
+            <label class="drop-zone" id="dropZone">
+              <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" multiple>
+              <span class="drop-icon" aria-hidden="true"></span>
+              <strong>파일을 선택하거나 여기에 놓으세요</strong>
+              <small>이미지는 여러 장 선택 가능, PDF는 한 번에 하나를 권장합니다.</small>
+            </label>
+
+            <div class="detected-box" aria-live="polite">
+              <span>감지된 작업</span>
+              <strong id="detectedMode">대기 중</strong>
+            </div>
+
+            <div class="controls-row">
+              <label for="imageQuality">이미지 품질</label>
+              <input id="imageQuality" type="range" min="0.6" max="1" step="0.05" value="0.92">
+              <span id="qualityValue">92%</span>
+            </div>
+
+            <div class="button-row">
+              <button class="xp-button primary" id="convertButton" type="button" disabled>변환 시작</button>
+              <button class="xp-button" id="clearButton" type="button">초기화</button>
+            </div>
+          </section>
+
+          <section class="tool-panel result-panel" aria-label="변환 결과">
+            <h3>선택한 파일</h3>
+            <ul class="file-list" id="fileList">
+              <li class="empty">아직 선택된 파일이 없습니다.</li>
+            </ul>
+            <div class="status-box" id="statusBox">파일을 선택하면 자동으로 변환 방향을 감지합니다.</div>
+            <div class="downloads" id="downloads" aria-live="polite"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="window-body panel" id="features" aria-labelledby="featuresTitle">
+        <h2 id="featuresTitle">기능 소개</h2>
+        <div class="copy-columns">
+          <article>
+            <h3>이미지에서 PDF 만들기</h3>
+            <p>여러 장의 JPG, PNG, WebP 이미지를 선택하면 각 이미지를 한 페이지로 배치한 PDF 파일을 생성합니다. 영수증, 스캔 이미지, 과제 제출 자료처럼 이미지 파일을 하나의 문서로 정리해야 할 때 유용합니다.</p>
+          </article>
+          <article>
+            <h3>PDF 페이지 이미지 저장</h3>
+            <p>PDF를 업로드하면 페이지를 순서대로 렌더링하고 PNG 이미지로 내려받을 수 있습니다. 썸네일 제작, 문서 미리보기, 일부 페이지 공유처럼 PDF 내용을 이미지로 활용해야 하는 상황에 맞춰 설계했습니다.</p>
+          </article>
+          <article>
+            <h3>정적 웹 기반 구조</h3>
+            <p>이 사이트는 HTML, CSS, JavaScript로 구성되어 Cloudflare Pages 같은 정적 호스팅 환경에 배포하기 쉽습니다. 변환 작업은 클라이언트에서 수행되므로 별도 서버, 데이터베이스, 로그인 시스템이 필요하지 않습니다.</p>
+          </article>
+          <article>
+            <h3>확장 가능한 메뉴</h3>
+            <p>우측 하단 시작 버튼과 창 내부 탭 구조를 통해 앞으로 압축, 병합, 분할, 워터마크 같은 추가 도구를 자연스럽게 연결할 수 있습니다. 기능별 설정과 안내 문구를 독립적으로 관리하기 좋게 구성했습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="window-body panel" id="about" aria-labelledby="aboutTitle">
+        <h2 id="aboutTitle">사이트 소개</h2>
+        <p>XP Converter는 복잡한 설치 과정 없이 브라우저에서 이미지와 PDF 변환 작업을 처리할 수 있도록 만든 무료 온라인 유틸리티입니다. 오래된 Windows XP의 친숙한 창 UI를 현대적인 웹 환경에 맞춰 재해석해, 처음 방문한 사용자도 파일 선택, 변환, 다운로드 흐름을 쉽게 이해할 수 있게 했습니다.</p>
+        <p>서비스의 핵심 목표는 빠른 접근성, 명확한 사용 경험, 파일 처리에 대한 투명성입니다. 사용자는 이미지를 PDF 문서로 묶거나 PDF 페이지를 이미지로 추출할 수 있으며, 추후 다양한 문서 도구를 같은 화면 구조 안에서 확장할 수 있습니다.</p>
+        <p>본 사이트는 정적 페이지로 제공되며, 광고 심사와 검색 노출에 필요한 기본 설명, 기능 안내, 개인정보 안내를 사용자에게 충분히 제공하는 것을 중요하게 생각합니다.</p>
+      </section>
+
+      <section class="window-body panel" id="privacy" aria-labelledby="privacyTitle">
+        <h2 id="privacyTitle">개인정보처리방침</h2>
+        <p>XP Converter는 이미지와 PDF 변환 기능을 제공하기 위해 사용자가 선택한 파일을 브라우저 내부에서 처리합니다. 현재 버전은 파일을 별도 서버로 업로드하거나 저장하지 않으며, 변환이 끝난 뒤 생성되는 결과 파일도 사용자의 기기에서 직접 내려받는 방식으로 제공됩니다.</p>
+        <p>사이트 운영 과정에서 일반적인 웹 호스팅 로그, 브라우저 정보, 접속 시간, 대략적인 접속 환경과 같은 비식별 기술 정보가 호스팅 사업자 또는 분석 도구를 통해 처리될 수 있습니다. 이러한 정보는 서비스 안정성 확인, 오류 개선, 보안 유지, 사용자 경험 개선 목적으로 활용될 수 있습니다.</p>
+        <p>추후 광고 또는 통계 서비스를 도입하는 경우 쿠키나 유사 기술이 사용될 수 있으며, 해당 기능이 적용될 때 관련 고지와 선택권을 제공할 예정입니다. 사용자는 브라우저 설정을 통해 쿠키 저장을 제한하거나 삭제할 수 있습니다.</p>
+        <p>문의, 제휴, 오류 신고 등 사용자가 직접 연락 정보를 제공하는 경우 해당 정보는 답변과 요청 처리 목적으로만 사용됩니다. 법령상 보관 의무가 있는 경우를 제외하고 목적 달성 후 지체 없이 파기하는 것을 원칙으로 합니다.</p>
+      </section>
+    </main>
+
+    <aside class="start-menu" id="startMenu" aria-label="시작 메뉴" hidden>
+      <div class="start-user">
+        <span class="user-picture" aria-hidden="true"></span>
+        <strong>XP Converter</strong>
+      </div>
+      <button type="button" data-panel-target="converter">이미지 PDF 변환</button>
+      <button type="button" data-panel-target="features">기능 소개</button>
+      <button type="button" data-panel-target="about">사이트 소개</button>
+      <button type="button" data-panel-target="privacy">개인정보처리방침</button>
+      <div class="coming-soon">추가 예정: PDF 병합, PDF 분할, 이미지 압축</div>
+    </aside>
+
+    <footer class="taskbar">
+      <div class="taskbar-empty" aria-hidden="true"></div>
+      <button class="start-button" id="startButton" type="button" aria-expanded="false" aria-controls="startMenu">
+        <span aria-hidden="true"></span>
+        시작
+      </button>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
